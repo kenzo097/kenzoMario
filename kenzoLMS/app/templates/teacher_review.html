@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Проверка работ{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body p-4">
+        <h1 class="h4 mb-3">Проверка работ</h1>
+        {% if items %}
+            <div class="list-group">
+                {% for item in items %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h2 class="h6 mb-1">{{ item.title }}</h2>
+                                <div class="small text-muted">Автор: {{ item.author.username }} ({{ item.author.email }})</div>
+                            </div>
+                            <span class="badge text-bg-primary">Текущий балл: {{ item.score }}</span>
+                        </div>
+
+                        <p class="mb-2">{{ item.description }}</p>
+                        <div class="d-flex gap-2 align-items-center flex-wrap">
+                            <a href="{{ url_for('main.uploaded_file', filename=item.filename) }}" class="btn btn-sm btn-outline-secondary">Открыть файл</a>
+                            <a href="{{ url_for('main.feedback_chat', submission_id=item.id) }}" class="btn btn-sm btn-outline-primary">Открыть чат</a>
+                            <form method="post" action="{{ url_for('main.set_score', submission_id=item.id) }}" class="d-flex gap-2 align-items-center">
+                                {{ form.hidden_tag() }}
+                                <input type="number" min="0" max="100" name="score" value="{{ item.score }}" class="form-control form-control-sm" style="max-width: 130px;">
+                                <button type="submit" class="btn btn-sm btn-success">Сохранить</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">Пока нет работ для проверки.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

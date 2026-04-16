@@ -1,0 +1,23 @@
+body {
+    background: #f4f7fb;
+}
+
+.hero {
+    background: linear-gradient(135deg, #d9e7ff 0%, #f2f8ff 100%);
+    border: 1px solid #c8dcff;
+}
+
+.card {
+    border: none;
+    border-radius: 1rem;
+}
+
+.list-group-item {
+    border-radius: 0.75rem;
+    margin-bottom: 0.6rem;
+}
+
+.chat-box {
+    max-height: 520px;
+    overflow-y: auto;
+}
