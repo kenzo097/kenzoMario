@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Чат обратной связи{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h5 mb-1">Чат по работе: {{ submission.title }}</h1>
+                <p class="text-muted mb-3">
+                    Студент: {{ submission.author.username }}
+                    {% if is_teacher_user %}
+                        ({{ submission.author.email }})
+                    {% endif %}
+                </p>
+                {% if submission.assignment %}
+                    <p class="small text-muted mb-3">
+                        Задание: <strong>{{ submission.assignment.title }}</strong>
+                        {% if submission.assignment.due_at %}
+                            — срок {{ submission.assignment.due_at.strftime('%d.%m.%Y %H:%M') }}
+                        {% endif %}
+                        {% if submission.is_submitted_late %}
+                            <span class="badge text-bg-danger ms-1">просрочено</span>
+                        {% endif %}
+                    </p>
+                {% endif %}
+
+                {% if submission.teacher_comment %}
+                    <div class="alert alert-secondary py-2 px-3 small mb-3">
+                        <strong class="d-block mb-1">Комментарий к оценке{% if is_teacher_user %} (сохранённый){% endif %}</strong>
+                        <div style="white-space: pre-wrap;">{{ submission.teacher_comment }}</div>
+                    </div>
+                {% endif %}
+
+                <div class="chat-box border rounded p-3 bg-light-subtle">
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <div class="mb-3 p-2 rounded {% if msg.sender_id == current_user.id %}bg-primary-subtle{% else %}bg-white{% endif %}">
+                                <div class="d-flex justify-content-between small text-muted mb-1">
+                                    <span>
+                                        {{ msg.sender.username }}
+                                        {% if msg.sender_id == submission.author_id %}
+                                            (ученик)
+                                        {% else %}
+                                            (учитель)
+                                        {% endif %}
+                                    </span>
+                                    <span>{{ msg.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+                                </div>
+                                <div style="white-space: pre-wrap;">{{ msg.body }}</div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted mb-0">Сообщений пока нет. Начните обсуждение.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="h6 mb-3">Новое сообщение</h2>
+                <form method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.body.label(class="form-label") }}
+                        {{ form.body(class="form-control", rows=6, placeholder="Введите сообщение...") }}
+                    </div>
+                    {{ form.submit(class="btn btn-primary w-100") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

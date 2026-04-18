@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4 mb-3">Вход</h1>
+                <form method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control") }}
+                    </div>
+                    {{ form.submit(class="btn btn-primary w-100") }}
+                </form>
+                <div class="d-flex gap-2 mt-3">
+                    <a class="btn btn-outline-success btn-sm w-100" href="{{ url_for('auth.register_student') }}">Регистрация ученика</a>
+                    <a class="btn btn-outline-info btn-sm w-100" href="{{ url_for('auth.register_teacher') }}">Регистрация учителя</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

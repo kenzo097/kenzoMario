@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Kenzo LMS Logo</title>
+  <desc id="desc">"5<=>-A8=89 ;>3>B8? A :=83>9 8 72574>9</desc>
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6cb6ff" />
+      <stop offset="100%" stop-color="#3d7bff" />
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f2f60" />
+      <stop offset="100%" stop-color="#08162f" />
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#g2)" stroke="#4f86d9" stroke-width="2"/>
+  <path d="M17 22c5-3 10-3 15 0v21c-5-3-10-3-15 0V22z" fill="#14386f" stroke="#7cbfff" stroke-width="1.5"/>
+  <path d="M47 22c-5-3-10-3-15 0v21c5-3 10-3 15 0V22z" fill="#0f2e5d" stroke="#7cbfff" stroke-width="1.5"/>
+  <path d="M32 20v24" stroke="#9ed0ff" stroke-width="1.5"/>
+  <path d="M45 15l1.7 3.6 3.9.5-2.9 2.8.7 3.9L45 24l-3.4 1.8.7-3.9-2.9-2.8 3.9-.5z" fill="url(#g1)"/>
+</svg>

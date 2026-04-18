@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Задания{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h5 mb-3">Новое задание</h1>
+                <form method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.title.label(class="form-label") }}
+                        {{ form.title(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.instructions.label(class="form-label") }}
+                        {{ form.instructions(class="form-control", rows=5, placeholder="Тема, требования, формат сдачи…") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.due_at.label(class="form-label") }}
+                        {{ form.due_at(class="form-control") }}
+                        <div class="form-text">Необязательно. Сравнивается с моментом загрузки работы.</div>
+                    </div>
+                    {{ form.submit(class="btn btn-primary w-100") }}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="h5 mb-3">Список заданий</h2>
+                {% if items %}
+                    <div class="list-group">
+                        {% for a in items %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-start gap-2">
+                                    <strong>{{ a.title }}</strong>
+                                    {% if a.due_at %}
+                                        <span class="badge text-bg-warning text-wrap">до {{ a.due_at.strftime('%d.%m.%Y %H:%M') }}</span>
+                                    {% else %}
+                                        <span class="badge text-bg-secondary">без срока</span>
+                                    {% endif %}
+                                </div>
+                                {% if a.instructions %}
+                                    <p class="small text-muted mb-0 mt-2" style="white-space: pre-wrap;">{{ a.instructions }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted mb-0">Заданий пока нет. Создайте первое слева.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
